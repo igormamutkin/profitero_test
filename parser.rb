@@ -1,5 +1,6 @@
 require 'curb'
 require 'nokogiri'
+require 'pry'
 
 class Parser
   attr_reader :parsed_products
@@ -42,13 +43,12 @@ class Parser
 
   def get_name(doc)
     puts 'get product name'
-    name_pr = doc.xpath("//p[@class='product_main_name']/text()").text
+    name_pr = doc.xpath("//p[@class='product_main_name']/text()").text.strip
   end
 
   def get_img(doc)
     puts 'get product image'
-    img = doc.xpath("//img[@id='bigpic']")
-    img.map { |image| image[:src] }
+    img = doc.xpath("//img[@id='bigpic']/@src").text
   end
 
   def get_sizes(doc)
