@@ -22,8 +22,9 @@ class Parser
     all_links
   end
 
-  def add_product(doc)
+  def add_product(link)
     puts 'add one product to the array of products'
+    doc = Downloader.get_doc(link)
     img_pr = get_img(doc)
     get_sizes(doc).each.with_index do |size, i|
       name_pr = get_name(doc) + " #{size}"
@@ -32,20 +33,7 @@ class Parser
       puts "Product: #{@parsed_products.last.join(', ')} was created"
     end
   end
-
-  def add_product(doc)
-    puts 'add one product to the array of products'
-    img_pr = get_img(doc)
-    name_pr = get_name(doc)
-    prices_pr = get_prices(doc)
-    get_sizes(doc).each.with_index do |size, i|
-      name_pr += " #{size}"
-      price_pr = prices_pr[i]
-      @parsed_products << [name_pr, price_pr, img_pr]
-      puts "Product: #{@parsed_products.last.join(', ')} was created"
-    end
-  end
-
+  
   private
 
   def get_name(doc)

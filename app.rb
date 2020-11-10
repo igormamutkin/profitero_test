@@ -12,8 +12,8 @@ url = cmdline.url
 file = cmdline.file
 
 parser = Parser.new
-array = parser.get_all_links(url.to_s)
+links = parser.get_all_links(url.to_s)
 file = FileCSV.new(file.to_s)
 
-array.each { |link| parser.add_product(Downloader.get_doc(link)) }
+links.each { |link| parser.add_product(link) }
 file.write_to_csv(parser.parsed_products)
